@@ -12,17 +12,26 @@ import {
 import { PrimeComponent } from "./prime/prime.component";
 import { NavbarComponent } from "./widgets/navbar/navbar.component";
 import { HomeComponent } from "./protected/home/home.component";
-import { FooterComponent } from './footer/footer.component';
-import { CreateuserComponent } from './createuser/createuser.component';
+import { FooterComponent } from "./footer/footer.component";
+import { CreateuserComponent } from "./createuser/createuser.component";
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
-  declarations: [AppComponent, PrimeComponent, NavbarComponent, HomeComponent, FooterComponent, CreateuserComponent],
+  declarations: [
+    AppComponent,
+    PrimeComponent,
+    NavbarComponent,
+    HomeComponent,
+    FooterComponent,
+    CreateuserComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

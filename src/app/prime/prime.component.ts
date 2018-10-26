@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { trigger, transition, style, animate } from "@angular/animations";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-prime",
@@ -17,12 +18,24 @@ import { trigger, transition, style, animate } from "@angular/animations";
   ]
 })
 export class PrimeComponent implements OnInit {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const url = window.location.search;
+    if (url.includes("code")) {
+      console.log(url.split("&")[0].split("=")[1]);
+      const code = url.split("&")[0].split("=")[1];
+      this.http
+        .post("http://localhost:3000/linkedin", { code: code })
+        .subscribe(
+          res => console.log("Res", res),
+          err => console.log("err", err)
+        );
+    }
+  }
 
   loginWithLinkedin() {
-    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=123456789&redirect_uri=https%3A%2F%2Fwww.example.com%2Fauth%2Flinkedin&state=987654321&scope=r_basicprofile,r_emailaddress`;
+    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81d483npdmnqhy&redirect_uri=http://ec2-18-221-216-61.us-east-2.compute.amazonaws.com&state=987654321&scope=r_basicprofile,r_emailaddress`;
   }
   loginWithFacebook() {}
   loginWithGoogle() {}
