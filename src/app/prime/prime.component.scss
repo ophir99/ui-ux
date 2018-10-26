@@ -1,0 +1,114 @@
+.prime {
+  display: grid;
+  grid-template-rows: 100% 150px;
+  overflow-y: scroll;
+  width: 100%;
+  > div {
+    &:first-child {
+      background-color: #fff;
+    }
+    &:last-child {
+      background-color: rgb(35, 35, 36);
+      background-color: #ececec;
+    }
+  }
+}
+tr tbody td {
+  padding: 10px 0;
+}
+.user-i {
+  width: 500px;
+  background-color: #fff;
+  height: 400px;
+  overflow: hidden;
+  box-shadow: 1px 2px 15px #b1b1b1;
+  > div {
+    width: 50%;
+    height: 100%;
+    &:first-child {
+      background-color: antiquewhite;
+      position: relative;
+      z-index: 0;
+    }
+    &:last-child {
+      background-color: rgb(221, 183, 134);
+
+      position: relative;
+      > div:first-child {
+        background-color: rgb(255, 255, 255);
+        width: 450%;
+        margin-right: 30%;
+        height: 200%;
+        transform: rotate(25deg);
+        z-index: 4;
+        z-index: 4;
+        position: relative;
+        right: 20%;
+        bottom: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        flex-direction: row-reverse;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        outline: 1px solid transparent;
+        padding: 20px;
+      }
+    }
+  }
+}
+.op {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  position: absolute;
+  background: #ee9ca7;
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(236, 0, 140, 0.8),
+    rgba(252, 103, 103, 0.9)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(236, 0, 140, 0.8),
+    rgba(252, 103, 103, 0.9)
+  );
+}
+.ux {
+  transform: rotate(-25deg);
+  width: 343px;
+  height: 417px;
+  left: 78px;
+  bottom: 30px;
+  position: relative;
+}
+
+.frgt {
+  padding: 0;
+  color: #ff7519;
+  font-size: 14px;
+}
+
+.prime {
+  ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    li {
+      list-style: none;
+      margin: 0 10px;
+      cursor: pointer;
+      &:first-child {
+        margin-left: 0;
+      }
+      i {
+        font-size: 24px;
+      }
+    }
+  }
+}
+.btn {
+  margin: 20px 0;
+  border-radius: 25px;
+}

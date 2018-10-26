@@ -1,0 +1,68 @@
+<div class="prime">
+  <div class="flx jcc aic">
+
+    <div class="user-i flx fdr" @anim>
+      <div>
+        <video src="/assets/dynamics.mp4" loop autoplay></video>
+        <div class="op">
+
+        </div>
+      </div>
+      <div>
+        <div>
+          <div class="ux">
+            <table>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Email">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="password" matInput placeholder="Password">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button mat-raised-button color="primary">Login</button>
+                  <p class="frgt">
+                    Forgot password??
+                  </p>
+                </td>
+
+              </tr>
+              <tr></tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li (click)="loginWithLinkedin()">
+                      <i class="fab fa-linkedin"></i>
+                    </li>
+                    <li (click)="loginWithFacebook()">
+                      <i class="fab fa-facebook-square"></i>
+                    </li>
+                    <li (click)="loginWithGoogle()">
+                      <i class="fab fa-google"></i>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button mat-stroked-button class="btn" routerLink="./create">Create your account</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+
+  </div>
+</div>
