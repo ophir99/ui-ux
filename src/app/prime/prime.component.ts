@@ -35,7 +35,7 @@ export class PrimeComponent implements OnInit {
   }
 
   loginWithLinkedin() {
-    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81d483npdmnqhy&redirect_uri=http://ec2-18-221-216-61.us-east-2.compute.amazonaws.com&state=987654321&scope=r_basicprofile,r_emailaddress`;
+    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81d483npdmnqhy&redirect_uri=http://ec2-18-221-216-61.us-east-2.compute.amazonaws.com:4200&state=987654321&scope=r_basicprofile,r_emailaddress`;
   }
   loginWithFacebook() {}
   loginWithGoogle() {}
