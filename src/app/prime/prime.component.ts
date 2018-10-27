@@ -40,7 +40,7 @@ export class PrimeComponent implements OnInit {
           (res: any) => {
             console.log("Res", res);
             this.uSer.userData = res.data;
-            this.router.navigateByUrl(["./home"]);
+            this.router.navigateByUrl("./home");
           },
           err => console.log("err", err)
         );
