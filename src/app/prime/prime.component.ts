@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { HttpClient } from "@angular/common/http";
+import { UserdataService } from "./userdata.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-prime",
@@ -18,7 +20,11 @@ import { HttpClient } from "@angular/common/http";
   ]
 })
 export class PrimeComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private uSer: UserdataService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const url = window.location.search;
@@ -31,7 +37,11 @@ export class PrimeComponent implements OnInit {
           { code: code }
         )
         .subscribe(
-          res => console.log("Res", res),
+          (res: any) => {
+            console.log("Res", res);
+            this.uSer.userData = res.data;
+            this.router.navigateByUrl(["./home"]);
+          },
           err => console.log("err", err)
         );
     }
