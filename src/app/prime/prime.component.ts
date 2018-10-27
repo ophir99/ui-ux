@@ -26,7 +26,10 @@ export class PrimeComponent implements OnInit {
       console.log(url.split("&")[0].split("=")[1]);
       const code = url.split("&")[0].split("=")[1];
       this.http
-        .post("http://localhost:3000/linkedin", { code: code })
+        .post(
+          "http://ec2-52-15-88-220.us-east-2.compute.amazonaws.com/linkedin",
+          { code: code }
+        )
         .subscribe(
           res => console.log("Res", res),
           err => console.log("err", err)
