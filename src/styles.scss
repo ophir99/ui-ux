@@ -41,16 +41,16 @@ router-outlet + * {
   width: 100vw;
   height: 100vh;
 }
-
 .flx {
   display: flex;
 }
-
 .fdc {
+  display: flex;
   flex-direction: column;
 }
 
 .fdr {
+  display: flex;
   flex-direction: row;
 }
 .jcc {

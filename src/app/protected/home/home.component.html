@@ -1,6 +1,375 @@
-<h1>
-  Welcome {{data.firstName}}
-</h1>
-{{data |json}}
-
-<img src="{{data.siteStandardProfileRequest.url}}" alt="">
+<!--
+  <div class="p-con">
+    <div>..</div>
+    <div>
+      <mat-card>
+        <table [formGroup]="profileForm">
+          <tbody *ngIf="tab === 0">
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="First name"
+                    formControlName="firstName"
+                  />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Last name"
+                    formControlName="lastName"
+                  />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input
+                    [min]="min"
+                    [max]="max"
+                    matInput
+                    [matDatepicker]="picker"
+                    placeholder="Date of Birth"
+                    formControlName="DOB"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="start" #picker></mat-datepicker>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Email" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input type="text" matInput placeholder="Mobile" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width">
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    aria-label="Number"
+                    matInput
+                    formControlName="country"
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      *ngFor="let country of (filteredCountries | async)"
+                      [value]="country.name"
+                    >
+                      {{ country.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="tab === 1">
+            <ng-container formArrayName="educationDetails">
+              <tr>
+                <button mat-raised-button (click)="addEducationDetails()">
+                  Add
+                </button>
+              </tr>
+              <ng-container
+                [formGroupName]="i"
+                *ngFor="
+                  let x of profileForm.get('educationDetails').controls;
+                  let i = index
+                "
+              >
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Institution"
+                        formControlName="institution"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Location"
+                        formControlName="location"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Course"
+                        formControlName="degree"
+                      />
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Grade"
+                        formControlName="grade"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [matDatepicker]="pickery"
+                        placeholder="From"
+                        formControlName="fromYear"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickery"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #pickery></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [matDatepicker]="pickery_"
+                        placeholder="From"
+                        formControlName="fromYear"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickery_"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #pickery_></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <button
+                      mat-mini-fab
+                      color="warn"
+                      (click)="removeEducationDetails(i)"
+                    >
+                      -
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <button mat-raised-button (click)="addAchievementsForEdu(i)">
+                    Add Achievements
+                  </button>
+                </tr>
+                <ng-container formArrayName="achievements">
+                  <tr
+                    *ngFor="
+                      let item of profileForm
+                        .get('educationDetails')
+                        .controls[i].get('achievements').controls;
+                      let ii = index
+                    "
+                  >
+                    <td>
+                      <mat-form-field>
+                        <textarea
+                          type="text"
+                          matInput
+                          placeholder="Achievements/Certifications {{ii}}"
+                          [formControlName]="ii"
+                        >
+                        </textarea>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <button
+                        mat-mini-fab
+                        color="warn"
+                        (click)="removeAchievementsFromEdu(i, ii)"
+                      >
+                        -
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tbody>
+          <tbody *ngIf="tab === 2">
+            <ng-container formArrayName="careerDetails">
+              <tr>
+                <button mat-raised-button (click)="addCareerDetails()">
+                  Add
+                </button>
+              </tr>
+              <ng-container
+                [formGroupName]="i"
+                *ngFor="
+                  let x of profileForm.get('careerDetails').controls;
+                  let i = index
+                "
+              >
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Company"
+                        formControlName="company"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Role / Designation"
+                        formControlName="designation"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Location"
+                        formControlName="location"
+                      />
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [matDatepicker]="pickery"
+                        placeholder="From"
+                        formControlName="fromYear"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickery"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #pickery></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [matDatepicker]="pickery_"
+                        placeholder="From"
+                        formControlName="fromYear"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickery_"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #pickery_></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input
+                        type="text"
+                        matInput
+                        placeholder="Are you working there now??"
+                        formControlName="activeEmployee"
+                      />
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <button
+                      mat-mini-fab
+                      color="warn"
+                      (click)="removeCareerDetails(i)"
+                    >
+                      -
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <button mat-raised-button (click)="addAchievementsForCareer(i)">
+                    Add Achievements
+                  </button>
+                </tr>
+                <ng-container formArrayName="achievements">
+                  <tr
+                    *ngFor="
+                      let item of profileForm
+                        .get('careerDetails')
+                        .controls[i].get('achievements').controls;
+                      let ii = index
+                    "
+                  >
+                    <td>
+                      <mat-form-field>
+                        <textarea
+                          type="text"
+                          matInput
+                          placeholder="Achievements/Certifications {{ii}}"
+                          [formControlName]="ii"
+                        >
+                        </textarea>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <button
+                        mat-mini-fab
+                        color="warn"
+                        (click)="removeAchievementsFromCareer(i, ii)"
+                      >
+                        -
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tbody>
+          <tbody>
+            <tr>
+              <td *ngIf="tab !== 0">
+                <button mat-raised-button color="primary" (click)="prevTab()">
+                  Prev
+                </button>
+              </td>
+              <td *ngIf="tab !== 2">
+                <button mat-raised-button color="primary" (click)="nextTab()">
+                  Next
+                </button>
+              </td>
+              <td *ngIf="tab === 2">
+                <button mat-raised-button color="primary" (click)="submit()">
+                  Submit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card>
+    </div>
+  </div>
+-->

@@ -9,26 +9,32 @@
       </div>
       <div>
         <div>
-          <div class="ux">
-            <table>
+          <div class="ux" [ngClass]="activeTab=='createAccount'?'btm':''">
+            <table [formGroup]="loginForm" *ngIf="activeTab=='login'">
               <tr>
                 <td>
                   <mat-form-field>
-                    <input type="text" matInput placeholder="Email">
+                    <input type="text" matInput placeholder="Email" formControlName="email">
+                    <mat-error>
+                      Please enter valid Email
+                    </mat-error>
                   </mat-form-field>
                 </td>
               </tr>
               <tr>
                 <td>
                   <mat-form-field>
-                    <input type="password" matInput placeholder="Password">
+                    <input type="password" matInput placeholder="Password" formControlName="password">
+                    <mat-error>
+                      Please enter valid Password
+                    </mat-error>
                   </mat-form-field>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <button mat-raised-button color="primary">Login</button>
-                  <p class="frgt">
+                  <button mat-raised-button color="primary" (click)="loginUser()">Login</button>
+                  <p class="frgt" (click)="activeTab='forgotPassword'">
                     Forgot password??
                   </p>
                 </td>
@@ -52,7 +58,103 @@
               </tr>
               <tr>
                 <td>
+                  <button mat-stroked-button class="btn" (click)="activeTab='createAccount'">Create your account</button>
+                </td>
+              </tr>
+            </table>
+            <table [formGroup]="regForm" *ngIf="activeTab=='createAccount'">
+              <tr>
+                <td>
+                  <i class="fas fa-arrow-left" (click)="activeTab='login'"></i>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Email" formControlName="email">
+                    <mat-error>
+                      Please enter valid Email
+                    </mat-error>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Choose username" formControlName="userName">
+                    <mat-error>
+                      Please enter valid Username
+                    </mat-error>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="password" matInput placeholder="Password" formControlName="password">
+                    <mat-error>
+                      Please enter valid password
+                    </mat-error>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="password" matInput placeholder="Confirm password" formControlName="confirmPassword">
+                    <mat-error>
+                      Confirm password is not same as password
+                    </mat-error>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button mat-raised-button color="primary" (click)="createUser()">Create account</button>
+                  <p class="frgt" (click)="activeTab='forgotPassword'">
+                    Forgot password??
+                  </p>
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>
                   <button mat-stroked-button class="btn" routerLink="./create">Create your account</button>
+                </td>
+              </tr>
+            </table>
+            <table [formGroup]="forgotPasswordForm" *ngIf="activeTab=='forgotPassword'">
+              <tr>
+                <td>
+                  <p>
+
+                    Please provide you email here..
+                  </p>
+                </td>
+                <td></td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Email" formControlName="email" />
+                  </mat-form-field>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <button mat-raised-button color="primary" (click)="sendEmail()">Send link</button>
+
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>
+                  <button mat-stroked-button class="btn" (click)="switchTab('login')">Go back to login..</button>
                 </td>
               </tr>
             </table>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { PrimeComponent } from "./prime/prime.component";
 import { HomeComponent } from "./protected/home/home.component";
 import { CreateuserComponent } from "./createuser/createuser.component";
+import { ProfileCreationComponent } from "./protected/profile-creation/profile-creation.component";
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent
+  },
+  {
+    path: "profile",
+    component: ProfileCreationComponent
   },
   {
     path: "create",

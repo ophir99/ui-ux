@@ -8,6 +8,7 @@ import { UserdataService } from "src/app/prime/userdata.service";
 })
 export class HomeComponent implements OnInit {
   data;
+  tab = 0;
   constructor(private us: UserdataService) {
     this.data = this.us.userData;
   }

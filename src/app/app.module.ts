@@ -4,17 +4,17 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {
-  MatButtonModule,
-  MatToolbarModule,
-  MatInputModule
-} from "@angular/material";
+
 import { PrimeComponent } from "./prime/prime.component";
 import { NavbarComponent } from "./widgets/navbar/navbar.component";
 import { HomeComponent } from "./protected/home/home.component";
 import { FooterComponent } from "./footer/footer.component";
 import { CreateuserComponent } from "./createuser/createuser.component";
 import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
+import { MatWidgetsModule } from "./shared/mat-widgets.module";
+import { ProfileCreationComponent } from "./protected/profile-creation/profile-creation.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,16 +22,16 @@ import { HttpClientModule } from "@angular/common/http";
     NavbarComponent,
     HomeComponent,
     FooterComponent,
-    CreateuserComponent
+    CreateuserComponent,
+    ProfileCreationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatButtonModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatInputModule,
-    HttpClientModule
+    MatWidgetsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

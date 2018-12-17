@@ -1,0 +1,55 @@
+mat-form-field {
+  margin: 10px;
+}
+.fdc {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+mat-card {
+  margin: 10px 0;
+}
+
+.fa-times-circle {
+  font-size: 16px;
+  color: #e91e63;
+  margin: 0 10px;
+  cursor: pointer;
+  &:hover {
+    color: antiquewhite;
+  }
+}
+
+.mat-stroked-button {
+  border-radius: 20px;
+  // border-color: chartreuse;
+  // padding: 0 25px;
+  // color: blue;
+}
+.ach {
+}
+
+.mat-raised-button {
+  margin: 20px 0 0 0 !important;
+}
+
+.mat-slider-horizontal {
+}
+.f-custom {
+  display: flex;
+  align-items: center;
+
+  > * {
+    flex-grow: 2;
+  }
+  > label {
+    flex-grow: 1;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    justify-content: center;
+  }
+}
+.full {
+  width: 99% !important;
+}

@@ -1,0 +1,521 @@
+<div class="fdc">
+  <div class="fdc asc" [formGroup]="profileForm">
+    <mat-card class="fdr">
+      <mat-card-header>
+        <mat-card-title> Personal information </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="text" matInput placeholder="First name" />
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Last name" />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            [min]="min"
+            [max]="max"
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Date of Birth"
+            formControlName="DOB"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker [startAt]="start" #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Email" />
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Mobile" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            placeholder="Country"
+            aria-label="Number"
+            matInput
+            formControlName="country"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let country of (filteredCountries | async)"
+              [value]="country.name"
+            >
+              {{ country.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-form-field class="full">
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="5"
+            placeholder="About Yourself"
+            matInput
+            formControlName="aboutYourself"
+          ></textarea>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="fdr" formArrayName="educationDetails">
+      <mat-card-header>
+        <mat-card-title> Academia </mat-card-title>
+      </mat-card-header>
+      <ng-container
+        [formGroupName]="i"
+        *ngFor="
+          let x of profileForm.get('educationDetails').controls;
+          let i = index
+        "
+      >
+        <mat-card-content> <div class="fdr aic"></div> </mat-card-content>
+        <mat-card-content class="fdr">
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Institution"
+              formControlName="institution"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Location"
+              formControlName="location"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Course"
+              formControlName="degree"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Grade"
+              formControlName="grade"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="pickery"
+              placeholder="From"
+              formControlName="fromYear"
+              [max]="today"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              [min]="
+                profileForm.get('educationDetails').controls[i].get('fromYear')
+                  .value
+              "
+              matInput
+              [matDatepicker]="pickery_"
+              placeholder="To"
+              formControlName="toYear"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery_"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery_></mat-datepicker>
+          </mat-form-field>
+          <i
+            class="far fa-times-circle"
+            (click)="removeEducationDetails(i)"
+          ></i>
+        </mat-card-content>
+      </ng-container>
+      <mat-card-content>
+        <button mat-stroked-button (click)="addEducationDetails()">
+          Add more institutions
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="fdr" formArrayName="certifications">
+      <mat-card-header>
+        <mat-card-title> Certifications </mat-card-title>
+      </mat-card-header>
+      <ng-container
+        [formGroupName]="i"
+        *ngFor="
+          let x of profileForm.get('certifications').controls;
+          let i = index
+        "
+      >
+        <mat-card-content class="fdr">
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Name"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Given by"
+              formControlName="givenBy"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [max]="today"
+              [matDatepicker]="pickery"
+              placeholder="Year"
+              formControlName="year"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [min]="
+                profileForm.get('certifications').controls[i].get('year').value
+              "
+              [matDatepicker]="pickery_"
+              placeholder="Valid upto"
+              formControlName="validUpto"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery_"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery_></mat-datepicker>
+          </mat-form-field>
+          <i class="far fa-times-circle" (click)="removeCertifications(i)"></i>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-form-field class="full" [style.width]="'300px'">
+            <textarea
+              matInput
+              name=""
+              id=""
+              cols="320"
+              rows="5"
+              placeholder="Write about certification here"
+            ></textarea>
+          </mat-form-field>
+        </mat-card-content>
+      </ng-container>
+
+      <mat-card-content>
+        <button mat-stroked-button (click)="addCertifications()">
+          Add more certifications
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="fdr" formArrayName="skills">
+      <mat-card-header>
+        <mat-card-title> Skills </mat-card-title>
+      </mat-card-header>
+      <ng-container
+        [formGroupName]="i"
+        *ngFor="let x of profileForm.get('skills').controls; let i = index"
+      >
+        <mat-card-content class="fdr f-custom">
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Name"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <!--
+            <label for=""
+              >Experience
+              {{
+                profileForm.get("skills").controls[i].get("experience").value
+              }}
+              years
+            </label>
+          -->
+          <mat-form-field>
+            <input
+              type="number"
+              [min]="0"
+              matInput
+              placeholder="Experience in years"
+              formControlName="experience"
+            />
+          </mat-form-field>
+          <!--
+            <mat-slider
+              [max]="70"
+              [min]="0"
+              [thumbLabel]="'Experience'"
+              formControlName="experience"
+              [tickInterval]="5"
+            >
+            </mat-slider>
+          -->
+          <!--
+            <label for=""
+              >Rate yourself.
+              {{
+                profileForm.get("skills").controls[i].get("rating").value
+              }}/10</label
+            >
+          -->
+          <mat-form-field>
+            <input
+              type="number"
+              [max]="10"
+              [min]="1"
+              matInput
+              placeholder="Rate yourself on scale of 0-10"
+              formControlName="rating"
+            />
+          </mat-form-field>
+          <!--
+            <mat-slider
+              [max]="10"
+              [min]="01"
+              [thumbLabel]="'Experience'"
+              formControlName="rating"
+              [tickInterval]="2"
+            >
+            </mat-slider>
+          -->
+          <i class="far fa-times-circle" (click)="removeSkills(i)"></i>
+        </mat-card-content>
+      </ng-container>
+
+      <mat-card-content>
+        <button mat-stroked-button (click)="addSkills()">
+          Add more Skills
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="fdr" formArrayName="careerDetails">
+      <mat-card-header>
+        <mat-card-title> Career </mat-card-title>
+      </mat-card-header>
+      <ng-container
+        [formGroupName]="i"
+        *ngFor="
+          let x of profileForm.get('careerDetails').controls;
+          let i = index
+        "
+      >
+        <mat-card-content class="fdr">
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Company"
+              formControlName="company"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Role / Designation"
+              formControlName="designation"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Location"
+              formControlName="location"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [max]="today"
+              [matDatepicker]="pickery"
+              placeholder="From"
+              formControlName="fromYear"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              [min]="
+                profileForm.get('careerDetails').controls[i].get('fromYear')
+                  .value
+              "
+              matInput
+              [matDatepicker]="pickery_"
+              placeholder="To"
+              formControlName="toYear"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery_"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery_></mat-datepicker>
+          </mat-form-field>
+          <i class="far fa-times-circle" (click)="removeCareerDetails(i)"></i>
+        </mat-card-content>
+
+        <ng-container formArrayName="achievements">
+          <mat-card-content
+            *ngFor="
+              let item of profileForm
+                .get('careerDetails')
+                .controls[i].get('achievements').controls;
+              let ii = index
+            "
+          >
+            <mat-form-field class="full">
+              <textarea
+                type="text"
+                matInput
+                rows="5"
+                placeholder="Responsibilities"
+                [formControlName]="ii"
+              >
+              </textarea>
+            </mat-form-field>
+
+            <!--
+              <i
+                class="far fa-times-circle"
+                (click)="removeAchievementsFromCareer(i, ii)"
+              ></i>
+            -->
+          </mat-card-content>
+        </ng-container>
+        <mat-card-content>
+          <!--
+            <button mat-stroked-button (click)="addAchievementsForCareer(i)">
+              Add Responsibilities
+            </button>
+          -->
+        </mat-card-content>
+      </ng-container>
+
+      <mat-card-content>
+        <button mat-stroked-button (click)="addCareerDetails()">
+          Add more organizations
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="fdr" formArrayName="projects">
+      <mat-card-header>
+        <mat-card-title> Projects. </mat-card-title>
+      </mat-card-header>
+      <ng-container
+        [formGroupName]="i"
+        *ngFor="let x of profileForm.get('projects').controls; let i = index"
+      >
+        <mat-card-content>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              formControlName="name"
+              placeholder="Project name"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [max]="today"
+              [matDatepicker]="pickery"
+              placeholder="Starting Date"
+              formControlName="startingDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickery"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickery></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [min]="
+                profileForm.get('projects').controls[i].get('startingDate')
+                  .value
+              "
+              [matDatepicker]="pickered"
+              placeholder="Ending date"
+              formControlName="endingDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickered"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickered></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              formControlName="toolsUsed"
+              placeholder="Tools used"
+            />
+          </mat-form-field>
+          <i class="far fa-times-circle" (click)="removeProjects(i)"></i>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-form-field class="full">
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="5"
+              placeholder="Project Description"
+              matInput
+              formControlName="description"
+            ></textarea>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-content> <div></div> </mat-card-content>
+      </ng-container>
+      <mat-card-content>
+        <button mat-stroked-button (click)="addProjects()">
+          Add more Projects
+        </button>
+      </mat-card-content>
+      <mat-card-content> <mat-divider></mat-divider> </mat-card-content>
+      <mat-card-content>
+        <button mat-raised-button color="primary" (click)="submit()">
+          Submit
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
